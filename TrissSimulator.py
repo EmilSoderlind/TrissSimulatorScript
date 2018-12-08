@@ -26,7 +26,8 @@ def createTrissList():
 
         # Printing progress
         sys.stdout.flush()
-        sys.stdout.write("\rTriss   #{}/2000000 |   {}%".format(trissNumber+1,round(((trissNumber+1)/2000000)*100,1)))
+        prettyCreatedIndex = format(trissNumber+1, ',d')
+        sys.stdout.write("\r| {}%".format(round(((trissNumber+1)/2000000)*100,1)))
 
         # Set each triss prize
         if(trissNumber == 0):
@@ -107,7 +108,7 @@ def main():
 
     print("Creating 2.000.000 Triss:es")
     filledList = createTrissList()
-    print("\nScrambeling triss:es.\n")
+    print("\n| Scrambeling triss:es.\n")
     scrambledList = scrambleList(filledList)
 
     prizeSum = 0
@@ -125,18 +126,21 @@ def main():
             currTriss = scrambledList[trissIndex]
             prizeSum += currTriss.getPrize()
             print("You won {} SEK!".format(currTriss.getPrize()))
-            print("------- Triss #{} -------\n".format(trissIndex+1))
+            print("------- Triss #{} -------\n\n".format(trissIndex+1))
 
             trissIndex += 1
         else:
             break
 
-    print("---- Final skrejping stats ----")
+    print("\n---- Final skrejping stats ----")
 
-    print("Triss:es skrejped: {}".format(trissIndex))
-    print("Money spent: {} SEK".format((trissIndex)*30))
-    print("Money won: {} SEK".format(prizeSum))
-    print("Profit: {} SEK".format(prizeSum-(trissIndex*30)))
+    print("Skrejped: {} Triss:es".format(trissIndex))
+    print("Spent: {} SEK".format((trissIndex)*30))
+    print("Won: {} SEK".format(prizeSum))
+    if(prizeSum-(trissIndex*30) > 0):
+        print("Profit: {} SEK".format(prizeSum-(trissIndex*30)))
+    else:
+        print("Loss: {} SEK".format(prizeSum-(trissIndex*30)))
 
     print("---- Skrejping stats ----")
 
