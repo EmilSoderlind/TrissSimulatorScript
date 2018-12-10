@@ -1,6 +1,13 @@
 import sys
 import random
 from Triss import Triss
+from datetime import datetime, time
+import multiprocessing
+from threading import Thread
+
+
+# Create list of triss:es
+trissList = []
 
 # Old function
 def doNumberOfTriss(n):
@@ -15,19 +22,18 @@ def doNumberOfTriss(n):
     else:
         print("Vinst!", "{} SEK".format(totVinst-trissCost))
 
-def createTrissList():
+def createTrissList(start,end):
+    print("Calling: createTrissList({},{})".format(start,end))
 
-    # Create list of triss:es
-    trissList = []
 
     # Create 200000 triss
-    for trissNumber in range(0,2000000):
+    for trissNumber in range(start,end):
         currTriss = Triss()
 
         # Printing progress
-        sys.stdout.flush()
-        prettyCreatedIndex = format(trissNumber+1, ',d')
-        sys.stdout.write("\r| {}%".format(round(((trissNumber+1)/2000000)*100,1)))
+        #sys.stdout.flush()
+        #prettyCreatedIndex = format(trissNumber+1, ',d')
+        #sys.stdout.write("\r| {}%".format(round(((trissNumber+1)/2000000)*100,1)))
 
         # Set each triss prize
         if(trissNumber > 432419):
@@ -141,7 +147,7 @@ def createTrissList():
             trissList.append(currTriss)
             continue
 
-    return trissList
+    print("Done with ({}->{})".format(start,end))
 
 def scrambleList(list):
     dest = list[:]
@@ -153,10 +159,35 @@ def main():
     # Constants
     skrejpTime = 4
 
+    start = datetime.now()
     print("Creating 2.000.000 tickets")
-    filledList = createTrissList()
-    print("\n| Scrambeling.\n")
-    scrambledList = scrambleList(filledList)
+
+    #  ------ Threading ------
+
+    startIndex = 0
+    endIndex = 2000000
+    numberOfThreads = multiprocessing.cpu_count()
+
+    # Length of each interval
+    partLengths = int(endIndex/numberOfThreads)
+
+    print("length of intervals: {}".format(partLengths))
+
+    for intervalNumber in range(0,numberOfThreads):
+        tempStartInterval = partLengths*intervalNumber
+        tempEndInterval = partLengths+(partLengths*intervalNumber)
+
+        thread = Thread(target = createTrissList, args = (tempStartInterval, tempEndInterval))
+        thread.start()
+
+    for intervalNumber in range(0,numberOfThreads):
+        thread.join()
+
+    #  ------ Threading ------
+
+    print("\n| Scrambeling.")
+    scrambledList = scrambleList(trissList)
+    print("| Done :{}\n".format(datetime.now()-start))
 
     prizeSum = 0
 
