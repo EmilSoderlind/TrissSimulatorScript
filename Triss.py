@@ -8,7 +8,7 @@ class Triss(object):
     def __init__(self):
         self.prize = -1
 
-    def setPrize(self,newPrize):
+    def setPrize(self, newPrize):
         self.prize = newPrize
 
     def getPrize(self):

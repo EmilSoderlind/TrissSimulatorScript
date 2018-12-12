@@ -1,228 +1,212 @@
-import sys
 import random
 from Triss import Triss
 from datetime import datetime, time
 import multiprocessing
 from threading import Thread
 
-
 # Create list of triss:es
 trissList = []
 
-# Old function
-def doNumberOfTriss(n):
-    print("Skrapar {} trisslotter".format(n))
-    totVinst = 0
-    trissCost = 30*n
-    for n in range(0,n):
-        totVinst = totVinst + doTriss()
-    print("Du betalade {} SEK, och vann {} SEK".format(trissCost,totVinst))
-    if(trissCost>totVinst):
-        print("Förlust!", "{} SEK".format(totVinst-trissCost))
-    else:
-        print("Vinst!", "{} SEK".format(totVinst-trissCost))
 
-def createTrissList(start,end):
-    print("Calling: createTrissList({},{})".format(start,end))
-
+def createTrissList(start, end):
+    print("Calling: createTrissList({},{})".format(start, end))
 
     # Create 200000 triss
-    for trissNumber in range(start,end):
-        currTriss = Triss()
-
-        # Printing progress
-        #sys.stdout.flush()
-        #prettyCreatedIndex = format(trissNumber+1, ',d')
-        #sys.stdout.write("\r| {}%".format(round(((trissNumber+1)/2000000)*100,1)))
+    for triss_number in range(start, end):
+        current_triss = Triss()
 
         # Set each triss prize
-        if(trissNumber > 432419):
-            currTriss.setPrize(0)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 252720 and trissNumber <= 432419):
-            currTriss.setPrize(30)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 43920 and trissNumber <= 252719):
-            currTriss.setPrize(60)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 14120 and trissNumber <= 43919):
-            currTriss.setPrize(90)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 6920 and trissNumber <= 14119):
-            currTriss.setPrize(120)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 3160 and trissNumber <= 6919):
-            currTriss.setPrize(150)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 1960 and trissNumber <= 3159):
-            currTriss.setPrize(180)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 1007 and trissNumber <= 1959):
-            currTriss.setPrize(300)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 697 and trissNumber <= 1006):
-            currTriss.setPrize(500)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 497 and trissNumber <= 696):
-            currTriss.setPrize(600)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 397 and trissNumber <= 496):
-            currTriss.setPrize(900)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 232 and trissNumber <= 396):
-            currTriss.setPrize(1000)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 152 and trissNumber <= 231):
-            currTriss.setPrize(1500)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 82 and trissNumber <= 151):
-            currTriss.setPrize(2000)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 52 and trissNumber <= 81):
-            currTriss.setPrize(5000)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 12 and trissNumber <= 51):
-            currTriss.setPrize(10000)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 10 and trissNumber <= 11):
-            currTriss.setPrize(20000)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 8 and trissNumber <= 9):
-            currTriss.setPrize(100000)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber == 7):
-            currTriss.setPrize(200000)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber >= 2 and trissNumber <= 6):
-            currTriss.setPrize(265000)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber == 1):
-            currTriss.setPrize(1000000)
-            # Append triss to list
-            trissList.append(currTriss)
-            continue
-        elif(trissNumber == 0):
-            currTriss.setPrize(2765000)
-            # Append triss to list
-            trissList.append(currTriss)
+        if triss_number > 432419:
+            current_triss.setPrize(0)
+            trissList.append(current_triss)
             continue
 
-    print("Done with ({}->{})".format(start,end))
+        elif 252720 <= triss_number <= 432419:
+            current_triss.setPrize(30)
+            trissList.append(current_triss)
+            continue
 
-def scrambleList(list):
+        elif 43920 <= triss_number <= 252719:
+            current_triss.setPrize(60)
+            trissList.append(current_triss)
+            continue
+
+        elif 14120 <= triss_number <= 43919:
+            current_triss.setPrize(90)
+            trissList.append(current_triss)
+            continue
+
+        elif 6920 <= triss_number <= 14119:
+            current_triss.setPrize(120)
+            trissList.append(current_triss)
+            continue
+
+        elif 3160 <= triss_number <= 6919:
+            current_triss.setPrize(150)
+            trissList.append(current_triss)
+            continue
+
+        elif 1960 <= triss_number <= 3159:
+            current_triss.setPrize(180)
+            trissList.append(current_triss)
+            continue
+
+        elif 1007 <= triss_number <= 1959:
+            current_triss.setPrize(300)
+            trissList.append(current_triss)
+            continue
+
+        elif 697 <= triss_number <= 1006:
+            current_triss.setPrize(500)
+            trissList.append(current_triss)
+            continue
+
+        elif 497 <= triss_number <= 696:
+            current_triss.setPrize(600)
+            trissList.append(current_triss)
+            continue
+
+        elif 397 <= triss_number <= 496:
+            current_triss.setPrize(900)
+            trissList.append(current_triss)
+            continue
+
+        elif 232 <= triss_number <= 396:
+            current_triss.setPrize(1000)
+            trissList.append(current_triss)
+            continue
+
+        elif 152 <= triss_number <= 231:
+            current_triss.setPrize(1500)
+            trissList.append(current_triss)
+            continue
+
+        elif 82 <= triss_number <= 151:
+            current_triss.setPrize(2000)
+            trissList.append(current_triss)
+            continue
+
+        elif 52 <= triss_number <= 81:
+            current_triss.setPrize(5000)
+            trissList.append(current_triss)
+            continue
+
+        elif 12 <= triss_number <= 51:
+            current_triss.setPrize(10000)
+            trissList.append(current_triss)
+            continue
+
+        elif 10 <= triss_number <= 11:
+            current_triss.setPrize(20000)
+            trissList.append(current_triss)
+            continue
+
+        elif 8 <= triss_number <= 9:
+            current_triss.setPrize(100000)
+            trissList.append(current_triss)
+            continue
+
+        elif triss_number == 7:
+            current_triss.setPrize(200000)
+            trissList.append(current_triss)
+            continue
+
+        elif 2 <= triss_number <= 6:
+            current_triss.setPrize(265000)
+            trissList.append(current_triss)
+            continue
+
+        elif triss_number == 1:
+            current_triss.setPrize(1000000)
+            trissList.append(current_triss)
+            continue
+
+        elif triss_number == 0:
+            current_triss.setPrize(2765000)
+            trissList.append(current_triss)
+            continue
+
+    print("Done with ({}->{})".format(start, end))
+
+
+def scramblelist(list):
+    print("\n| Scrambeling.")
     dest = list[:]
     random.shuffle(dest)
     return dest
 
+
 def main():
-
-    # Constants
-    skrejpTime = 4
-
     start = datetime.now()
     print("Creating 2.000.000 tickets")
 
-    #  ------ Threading ------
+    generate_ticket_list()
+    scrambled_list = scramblelist(trissList)
 
-    startIndex = 0
-    endIndex = 2000000
-    numberOfThreads = multiprocessing.cpu_count()
+    print("| Done :{}\n".format(datetime.now() - start))
+    prize_sum = 0
 
-    # Length of each interval
-    partLengths = int(endIndex/numberOfThreads)
+    # Looping through each triss in scrambled_list
+    for trissIndex in range(0, 1999999):
 
-    print("length of intervals: {}".format(partLengths))
-
-    for intervalNumber in range(0,numberOfThreads):
-        tempStartInterval = partLengths*intervalNumber
-        tempEndInterval = partLengths+(partLengths*intervalNumber)
-
-        thread = Thread(target = createTrissList, args = (tempStartInterval, tempEndInterval))
-        thread.start()
-
-    for intervalNumber in range(0,numberOfThreads):
-        thread.join()
-
-    #  ------ Threading ------
-
-    print("\n| Scrambeling.")
-    scrambledList = scrambleList(trissList)
-    print("| Done :{}\n".format(datetime.now()-start))
-
-    prizeSum = 0
-
-    # Looping through each triss in scrambledList
-    for trissIndex in range(0,1999999):
-
-        print("Do you want to skrejp a triss?")
-        oneMore = input("(Press [Enter] to skrejp or write something to exit)\n")
-        print(oneMore)
-        # Comparing non case-sensetive
-        if(oneMore == "" or oneMore is None):
-
-            print("------- Triss #{} -------".format(trissIndex+1))
-            currTriss = scrambledList[trissIndex]
-            prizeSum += currTriss.getPrize()
-            print("You won {} SEK!".format(currTriss.getPrize()))
-            print("------- Triss #{} -------\n\n".format(trissIndex+1))
-
-            trissIndex += 1
-        else:
+        if not one_more_triss_check():
             break
 
-    print("\n---- Final skrejping stats ----")
+        prize_sum = current_ticket(prize_sum, scrambled_list, trissIndex)
+        trissIndex += 1
 
+    printResult(prize_sum, trissIndex)
+
+
+def generate_ticket_list():
+    #  ------ Threading ------
+    start_index = 0
+    end_index = 2000000
+    number_of_threads = multiprocessing.cpu_count()
+    # Length of each interval
+    part_lengths = int(end_index / number_of_threads)
+
+    for intervalNumber in range(start_index, number_of_threads):
+        temp_start_interval = part_lengths * intervalNumber
+        temp_end_interval = part_lengths + (part_lengths * intervalNumber)
+
+        thread = Thread(target=createTrissList, args=(temp_start_interval, temp_end_interval))
+        thread.start()
+
+    # Wait for all threads
+    for intervalNumber in range(0, number_of_threads):
+        thread.join()
+    #  ------ Threading ------
+
+
+def one_more_triss_check():
+    print("Do you want to skrejp a triss?")
+    user_response = input("(Press [Enter] to skrejp or write something to exit)\n")
+    bol = user_response == ""
+    return bol
+
+
+def current_ticket(prizeSum, scrambledList, trissIndex):
+    print("------- Triss #{} -------".format(trissIndex + 1))
+    currTriss = scrambledList[trissIndex]
+    prizeSum += currTriss.getPrize()
+    print("You won {} SEK!".format(currTriss.getPrize()))
+    print("------- Triss #{} -------\n\n".format(trissIndex + 1))
+    return prizeSum
+
+
+def printResult(prizeSum, trissIndex):
+    print("\n---- Final skrejping stats ----")
     print("Skrejped: {} Triss:es".format(trissIndex))
-    print("Spent: {} SEK".format((trissIndex)*30))
+    print("Spent: {} SEK".format(trissIndex * 30))
     print("Won: {} SEK".format(prizeSum))
-    if(prizeSum-(trissIndex*30) > 0):
-        print("Profit: {} SEK".format(prizeSum-(trissIndex*30)))
+
+    if prizeSum - (trissIndex * 30) > 0:
+        print("Profit: {} SEK".format(prizeSum - (trissIndex * 30)))
     else:
-        print("Loss: {} SEK".format(prizeSum-(trissIndex*30)))
+        print("Loss: {} SEK".format(prizeSum - (trissIndex * 30)))
 
     print("---- Final skrejping stats ----")
-
-
     print("\nThank you, come again!")
 
 
