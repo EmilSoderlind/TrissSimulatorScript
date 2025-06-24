@@ -166,15 +166,18 @@ def generate_ticket_list():
     # Length of each interval
     part_lengths = int(end_index / number_of_threads)
 
+    threads = []
+
     for intervalNumber in range(start_index, number_of_threads):
         temp_start_interval = part_lengths * intervalNumber
         temp_end_interval = part_lengths + (part_lengths * intervalNumber)
 
         thread = Thread(target=createTrissList, args=(temp_start_interval, temp_end_interval))
         thread.start()
+        threads.append(thread)
 
     # Wait for all threads
-    for intervalNumber in range(0, number_of_threads):
+    for thread in threads:
         thread.join()
     #  ------ Threading ------
 
