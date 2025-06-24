@@ -2,11 +2,8 @@
 class Triss(object):
     prize = -1
 
-    def __init__(self, newPrize):
-        self.prize = newPrize
-
-    def __init__(self):
-        self.prize = -1
+    def __init__(self, prize=-1):
+        self.prize = prize
 
     def setPrize(self, newPrize):
         self.prize = newPrize
